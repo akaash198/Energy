@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/Home.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <!-- <div class="sidebar">
+      <a href="#"><i class="fas fa-home"></i></a>
+      <a href="#"><i class="fas fa-globe"></i></a>
+      <a href="#"><i class="fas fa-user"></i></a>
+    </div> -->
+    <div class="date-label">
+      <!-- <div class="start-date">
+        <label for="start">Start date:</label>
+        <input
+          type="date"
+          id="start"
+          name="trip-start"
+          value="2021-07-22"
+          min="2021-01-01"
+          max="2021-12-31"
+        />
+      </div>
+      <div class="end-date">
+        <label for="start">End date:</label>
+        <input
+          type="date"
+          id="start"
+          name="trip-start"
+          value="2021-07-22"
+          min="2021-01-01"
+          max="2021-12-31"
+        />
+      </div> -->
+    
+    </div>
+    <form method="POST" id="date-filter-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="date-picker-container">
+                <div class="date-picker">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" required>
+                </div>
+                <div class="date-picker">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" required>
+                </div>
+                <div>
+                    <button class="submit-button" type="submit">Submit</button>
+                </div>
+                <div style="margin-left: 10px;">
+                    <button class="submit-button" type="reset" onclick="resetDateFilter()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="selected-date-container">
+        <p>Selected Date: {{ start_date }} - {{ end_date }}</p>
+    </div>
+
+    </div>
+
+    
+
+    <div class="grid-container">
+
+      <div class="grid-container">
+        {% for stat in statistics %}
+        <div class="grid-item">
+          <div class="inside-left-data">
+            <div class="inside-top-container">
+              <div class="inside-left-top">{{ stat.Field }}</div>
+              <div class="inside-left-bottom">{{ stat.Average }}</div>
+            </div>
+            <div class="inside-right-container">
+              <div class="inside-right-top">MIN: {{ stat.Minimum }}</div>
+              <div class="inside-right-bottom">MAX: {{ stat.Maximum }}</div>
+            </div>
+          </div>
+          <div class="compare-container">
+            <div class="inside-compare-left" style ="color: {{ stat.Percentage_Change_Average_Color }}">compare to previous window {{stat.Percentage_Change_Average}} </div>
+            <div class="label inside-compare-right">
+            <div class="tooltip">
+                <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="#ED3E44" fill-rule="evenodd">
+                      <path
+                        d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z"
+                      />
+                      <path
+                        d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z"
+                      />
+                    </g>
+                  </svg>
+                <span class="tooltiptext">
+                    <div class="tooltip-text">
+                        <div class="tooltip-text-top">AVG: {{stat.Average_Previous_Period}}</div>
+                        <div class="tooltip-text-bottom">MIN: {{stat.Minimum_Previous_Period}} <br> MAX: {{stat.Maximum_Previous_Period}}</div>
+                    </div>
+                </span>
+                </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+ 
+    <div class="grid">
+      <div class="chart-card">
+          <h2>Wind Speed</h2>
+          <canvas id="line-chart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h2>Wind Generation</h2>
+        <canvas id="line-chart_wind_generation"></canvas>
+    </div>
+      <div class="chart-card">
+          <h2>Wave height</h2>
+          <canvas id="line-chart_wave"></canvas>
+      </div>
+      <div class="chart-card">
+        <h2>Wave Generation</h2>
+        <canvas id="line-chart_wave_generation"></canvas>
+    </div>
+      <div class="chart-card">
+        <h2>Tidal current</h2>
+        <canvas id="line-chart_tidal"></canvas>
+      </div>
+      <div class="chart-card">
+        <h2>Tidal Generation</h2>
+        <canvas id="line-chart_tidal_generation"></canvas>
+      </div>
+      <div class="chart-card">
+        <h2>Water Temperature</h2>
+        <canvas id="line-chart_water"></canvas>
+      </div>
+    <div class="chart-card">
+      <h2>Total Generation</h2>
+      <canvas id="line-chart_total_generation"></canvas>
+    </div>
+
+    </div>
+  <div class="heatmap-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                {% for hour in heatmap_data.0.Data %}
+                    <th>{{ hour.Hour }}</th>
+                {% endfor %}
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in heatmap_data %}
+                <tr>
+                    <td>{{ item.Date }}</td>
+                    {% for hour_data in item.Data %}
+                    <td class="heatmap-cell
+                        {% if hour_data.high_Anomaly %}
+                            high-anomaly
+                        {% elif hour_data.low_Anomaly %}
+                            low-anomaly
+                        {% endif %}">
+                        <div class="tooltip">
+                            {{ hour_data.Value }}
+                            <span class="tooltiptext">
+                                Wind: {{ hour_data.WindData }},<br> Tidal: {{ hour_data.TidalData }},<br> Wave: {{ hour_data.WaveData }}
+                            </span>
+                        </div>
+                    </td>
+                
+                    {% endfor %}
+                    <td class="heatmap-cell total
+                        {% if item.TotalBorderColor %}
+                            {{ item.TotalBorderColor }}
+                        {% endif %}
+                        {% if item.TotalBorderStyle %}
+                            {{ item.TotalBorderStyle }}
+                        {% endif %}">
+                        {{ item.Total }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="border: 3px solid green;  background-color: rgb(176, 224, 176)"></div>
+            <div class="legend-text">Peak Power Generation</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="border: 3px dotted green; background-color: rgb(176, 224, 176)"></div>
+            <div class="legend-text">Off-Peak Power Generation</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="border: 3px solid purple; border-style: solid;"></div>
+            <div class="legend-text">Higher Day Power Generation</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="border: 3px solid purple; border-style: dotted;"></div>
+            <div class="legend-text">Lower day Power Generation</div>
+        </div>
+    </div>
+  </div>
+
+ 
+
+    <script>
+
+        function resetDateFilter() {
+                // Reset the date filter by clearing the input fields and submitting the form.
+                document.getElementById('start_date').value = '';
+                document.getElementById('end_date').value = '';
+                document.getElementById('date-filter-form').submit();
+            }
+
+
+
+
+      var ctx = document.getElementById('line-chart').getContext('2d');
+      var labels = {{ chart_data.labels|safe }};
+      var data = {{ chart_data.values|safe }};
+      
+      var lineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Wind Speed (m/s)',
+                  data: data,
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1
+              }]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Hour of the Day'
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Wind Speed (m/s)'
+                      }
+                  }
+              }
+          }
+      });
+
+
+      var ctx = document.getElementById('line-chart_wave').getContext('2d');
+      var labels = {{ chart_data2.labels|safe }};
+      var data = {{ chart_data2.values|safe }};
+
+      var lineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Wave Height (m)',
+                  data: data,
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1
+              }]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Hour of the Day'
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Wave Height (m)'
+                      }
+                  }
+              }
+          }
+      });
+
+
+      var ctx = document.getElementById('line-chart_tidal').getContext('2d');
+      var labels = {{ chart_data3.labels|safe }};
+      var data = {{ chart_data3.values|safe }};
+
+      var lineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Tidal Current (m/s)',
+                  data: data,
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1
+              }]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Hour of the Day'
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Tidal Current (m/s)'
+                      }
+                  }
+              }
+          }
+      });
+
+
+      var ctx = document.getElementById('line-chart_water').getContext('2d');
+      var labels = {{ chart_data4.labels|safe }};
+      var data = {{ chart_data4.values|safe }};
+
+      var lineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Water Temperature (°C)',
+                  data: data,
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1
+              }]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Hour of the Day'
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Water Temperature (°C)'
+                      }
+                  }
+              }
+          }
+      });
+
+
+      var ctx = document.getElementById('line-chart_wind_generation').getContext('2d');
+      var labels = {{ chart_data5.labels|safe }};
+      var data = {{ chart_data5.values|safe }};
+
+
+      var lineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Wind Generation (MW)',
+                  data: data,
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1
+              }]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Hour of the Day'
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Wind Generation (MW)'
+                      }
+                  }
+              }
+          }
+      });
+
+
+      var ctx = document.getElementById('line-chart_wave_generation').getContext('2d');
+      var labels = {{ chart_data6.labels|safe }};
+      var data = {{ chart_data6.values|safe }};
+
+
+      var lineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Wave Generation (MW)',
+                  data: data,
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1
+              }]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Hour of the Day'
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Wave Generation (MW)'
+                      }
+                  }
+              }
+          }
+      });
+
+
+      var ctx = document.getElementById('line-chart_tidal_generation').getContext('2d');
+      var labels = {{ chart_data7.labels|safe }};
+      var data = {{ chart_data7.values|safe }};
+      var lineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Tidal Generation (MW)',
+                  data: data,
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1
+              }]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Hour of the Day'
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Tidal Generation (MW)'
+                      }
+                  }
+              }
+          }
+      });
+
+
+      var ctx = document.getElementById('line-chart_total_generation').getContext('2d');
+      var labels = {{ chart_data8.labels|safe }};
+      var data = {{ chart_data8.values|safe }};
+
+
+      var lineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Total Generation (KW)',
+                  data: data,
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1
+              }]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Hour of the Day'
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Total Generation (KW)'
+                      }
+                  }
+              }
+          }
+      });
+  </script>
+  </body>
+</html>

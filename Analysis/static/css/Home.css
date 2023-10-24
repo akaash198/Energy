@@ -1,0 +1,551 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    height: 100%;
+    width: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    padding-top: 20px;
+    transition: width 0.3s;
+}
+
+/* Sidebar Button Styles */
+.sidebar a {
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+    display: block;
+    /* Add background color and hover effect */
+    background-color: #333;
+    transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #555;
+}
+
+
+
+ 
+
+/* Grid Styles */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    padding: 20px; /* Adjusted margin to accommodate the sidebar */
+    max-width: calc(100%); /* Adjusted width to account for the sidebar */
+    overflow-x: hidden; /* Add this to hide horizontal overflow */
+}
+
+.container {
+    margin-left: 70px; /* Adjusted margin to accommodate the sidebar */
+    max-width: calc(100%); /* Adjusted width to account for the sidebar */
+}
+
+
+
+
+
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    height: 110px;
+
+
+}
+
+
+.inside-left-data {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    height: 80%;
+}
+
+.inside-top-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: self-start;
+    width: 55%;
+    padding: 5px;
+}
+
+.inside-left-top {
+    display: flex;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.inside-left-bottom {
+    font-size: 18px;
+    color: #666;
+    padding-top: 5px;
+}
+
+
+.inside-right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    padding: 5px;
+
+}
+
+.inside-right-top {
+    width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 5px;
+    
+
+}
+
+.inside-right-bottom {
+    width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+
+}
+
+.compare-container {
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 100%;
+    height: 20%;
+
+
+}
+
+
+.inside-compare-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    height: 30px;
+    border-radius: 5px;
+    margin:0 5px;
+}
+
+.inside-compare-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+
+
+
+/* New Container Styles */
+.container {
+    margin-left: 70px; /* Adjust this margin */
+}
+
+
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .sidebar {
+
+        width: 60px;
+    }
+
+    .grid-container {
+        margin-left: 60px;
+    }
+
+    .container {
+        margin-left: 20px; /* Adjust this margin */
+        margin-right: 10px; /* Adjust this margin */
+    }
+
+    .grid-item {
+        font-size: 16px;
+    }
+
+    .inside-left-top {
+        font-size: 14px;
+    }
+
+    .inside-left-bottom {
+        font-size: 16px;
+    }
+
+    .inside-right-top {
+        font-size: 12px;
+    }
+
+    .inside-right-bottom {
+        font-size: 12px;
+    }
+
+    .inside-compare-left {
+        font-size: 14px;
+    }
+
+    .inside-compare-right {
+        font-size: 14px;
+    }
+
+    .date-label {
+        margin-left: 40px; /* Adjusted margin to accommodate the sidebar */
+        max-width: calc(100% - 60px); /* Adjusted width to account for the sidebar */
+    }
+
+    .start-date {
+        margin-right: 10px;
+    }
+
+    .end-date {
+        margin-left: 10px;
+    }
+
+
+}
+
+@media screen and (max-width: 480px) {
+    .sidebar {
+        width: 40px;
+    }
+
+    .sidebar a {
+        font-size: 16px;
+    }
+
+    .grid-container {
+        margin-left: 10px;
+    }
+
+    .container {
+        margin-left: 10px; /* Adjust this margin */
+        margin-right: 10px; /* Adjust this margin */
+    }
+
+    .grid-item {
+        font-size: 16px;
+    }
+
+
+
+
+}
+
+
+
+.label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    }
+
+.label-text {
+    margin-left: 0.5em;
+    }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        /* border-bottom: 1px dotted black; */
+      }
+
+    .tooltip svg {
+        height: 18px;
+        width: 18px;
+        }
+      
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 150%;
+        left: 50%;
+        margin-left: -60px;
+      }
+
+      .tooltiptext {
+        font-size: 14px;
+        padding: 8px;
+      }
+      
+      .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: black transparent transparent transparent;
+      }
+      
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+      }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+
+        
+
+
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;/* Adjusted margin to accommodate the sidebar */
+        margin-left: 20px;
+        max-width: calc(100%); /* Adjusted width to account for the sidebar */
+        margin-right: 20px;
+    }
+    
+    .chart-card {
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+    }
+    
+    h2 {
+        margin: 0;
+        font-size: 18px;
+    }
+    
+    canvas {
+        margin-top: 20px;
+        width: 100%;
+        height: auto;
+    }
+
+
+    .heatmap-container{
+        margin: auto;
+        width: 95%;
+        margin-bottom: 50px;
+    }
+ 
+        /* Center the table on the page */
+        table {
+            margin: 20px auto 20px auto;
+            border-collapse: separate;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style the table header row */
+        th {
+            background-color:rgb(8, 8, 65);
+            color: white;
+            /* font-weight: bold; */
+            font-size: 13px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        /* Style the table header cells */
+        th:not(:first-child) {
+            background-color: rgb(8, 8, 65);
+        }
+
+        /* Style the table body rows */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Style the table body cells */
+        td {
+            padding: 5px;
+            margin: 2px;
+            text-align: center;
+            font-size: 13px; /* Adjust font size as needed */
+            border-spacing: 5px;
+
+        }
+
+        /* Style the "anomaly" class, which highlights cells in red */
+        .heatmap-cell.anomaly {
+            background-color: red;
+            color: white;
+        }
+
+        /* Add hover effect to cells for better interactivity */
+        td:hover {
+            background-color: #ddd;
+        }
+
+        /* Dynamic high anomaly and low anomaly border colors */
+        .heatmap-cell.high-anomaly {
+            border: 3px solid green;
+            background-color: rgb(176, 224, 176)
+        }
+        .heatmap-cell.low-anomaly {
+            border: 3px dotted green;
+            background-color: rgb(176, 224, 176)
+        }
+
+        .heatmap-cell.total.solid {
+            border: 3px solid purple;
+            border-style: solid;
+        }
+
+        .heatmap-cell.total.dotted {
+            border: 3px solid purple;
+            border-style: dotted;
+        }
+
+        .heatmap-cell.total.dashed {
+            border-style: dashed;
+        }
+
+
+        /* Legends */
+        .legend {
+            display: flex;
+            justify-content: right;
+            align-items: right;
+            margin: 10px auto;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .legend-item .legend-color {
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+        }
+
+        .legend-item .legend-text {
+            font-size: 12px;
+        }
+
+
+    .form-group{
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: left;
+        margin: 10px;
+    }
+
+    .date-picker-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
+
+    .date-picker{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
+
+    .date-picker input {
+        width: 100%;
+        padding: 10px 10px;
+        border-radius: 3px;
+        border: none;
+        outline: none;
+        background: #dae8fc;
+        color: #000;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all .3s ease;
+        }
+
+        .date-picker label {
+            width: 120px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            }
+
+    .submit-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        border: none;
+        transition: all .3s ease;
+        padding: 12px 20px;
+        border: none;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+
+
+        .selected-date-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+            align-items: left;
+            margin-left: 20px;
+        }
+
+        .selected-date-container p {
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            margin: 0 10px;
+        }
