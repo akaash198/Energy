@@ -577,4 +577,4 @@ def home(request):
 
     # heatmap_analysis = heatmap_data(data,'2023-10-10 00:00:00', '2023-10-17 23:59:59')
   
-    return render(request, "home.html", {"statistics": statistics, "chart_data": wind_speed, "chart_data2": wave_height, "chart_data3": tidal_current, "chart_data4": water_temperature, "chart_data5": wind_generation, "chart_data6": wave_generation, "chart_data7": tidal_generation, "chart_data8": total_generation , "heatmap_data": heatmap_insights, "start_date": filter_date[0], "end_date": filter_date[1]})
+    return render(request, "Analysis/templates/Home.html", {"statistics": statistics, "chart_data": wind_speed, "chart_data2": wave_height, "chart_data3": tidal_current, "chart_data4": water_temperature, "chart_data5": wind_generation, "chart_data6": wave_generation, "chart_data7": tidal_generation, "chart_data8": total_generation , "heatmap_data": heatmap_insights, "start_date": filter_date[0], "end_date": filter_date[1]})
