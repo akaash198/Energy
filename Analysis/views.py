@@ -473,35 +473,7 @@ def get_data():
     data = pd.read_csv(file.file)
     return data
 
-# def filter_data(request):
-#     start_date = request.POST.get('start_date')
-#     end_date = request.POST.get('end_date')
-#     print(start_date)
-#     print(end_date)
 
-#     if start_date and end_date is not None:
-#         # Perform filtering based on start_date and end_date
-#         file = FileUpload.objects.all()
-#         data = pd.read_csv(file[0].file)
-#         data['Timestamp'] = pd.to_datetime(data['Timestamp'])
-#         data['Hour'] = data['Timestamp'].dt.hour
-#         data['Date'] = data['Timestamp'].dt.date
-
-#         filtered_df = (data['Timestamp'].dt.date >= pd.to_datetime(start_date).date()) & (data['Timestamp'].dt.date <= pd.to_datetime(end_date).date())
-#         filtered_data = data[filtered_df]
-#         print(data)
-        
-#         # filtered_data = data[filtered_df]
-        
-        
-#     else:
-#         # If no dates are selected, show all data
-#         file = FileUpload.objects.all()
-#         data = pd.read_csv(file[0].file)
-#         filtered_data = data
-      
-#         # print(filtered_df)
-#     return filtered_data
 
 import pandas as pd
 
