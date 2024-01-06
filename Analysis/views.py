@@ -466,7 +466,7 @@ def heatmap_analysis(request):
     end_date = current_date - timedelta(days=0)
     print(start_date)
     print(end_date)
-    heatmap_df = heatmap_data(data, '2023-10-16 00:00:00', '2023-10-22 23:59:59')
+    heatmap_df = heatmap_data(data, '2024-01-01 00:00:00', '2024-01-05 23:59:59')
     return heatmap_df
 def get_data():
     file = FileUpload.objects.filter().first()
