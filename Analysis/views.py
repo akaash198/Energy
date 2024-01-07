@@ -12,6 +12,8 @@ def formatNumber(num):
         magnitude += 1
         num /= 1000.0
     return '{}{}'.format('{:f}'.format(num).rstrip('0').rstrip('.'), ['', 'K', 'M', 'B', 'T', 'P'][magnitude])
+
+
     
 
 def comparsion_percentage(start_date, end_date):
