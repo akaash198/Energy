@@ -462,7 +462,7 @@ from datetime import datetime, timedelta
 def heatmap_analysis(request):
     # file = FileUpload.objects.all()
     # data = pd.read_csv(file[0].file)
-    data = pd.read_csv("Analysis/static/data.csv")
+    data = pd.read_csv("Analysis/static/css/data.csv")
     current_date = datetime.now()
     start_date = current_date - timedelta(days=7)
     end_date = current_date - timedelta(days=0)
