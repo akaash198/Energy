@@ -529,7 +529,7 @@ def home(request):
     # print(data)
     # file = FileUpload.objects.all()
     # data = pd.read_csv(file[0].file)
-    data = pd.read_csv("Analysis/static/data.csv")
+    data = pd.read_csv("Analysis/static/css/data.csv")
     data['Timestamp'] = pd.to_datetime(data['Timestamp'])
     data['Hour'] = data['Timestamp'].dt.hour
     data['Date'] = data['Timestamp'].dt.date
