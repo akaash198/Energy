@@ -564,7 +564,8 @@
                     margin: 0 10px;
                 }
 
-            .view-on-bigger-screen {
+
+        .view-on-bigger-screen {
         display: none;
         background-color: #f44336;
         color: white;
@@ -572,43 +573,25 @@
         padding: 10px;
       }
 
-      @media screen and (max-width: 768px) {
+      @media only screen and (max-width: 480px) {
+        .content-container {
+          display: none;
+        }
         .view-on-bigger-screen {
           display: block;
         }
       }
+
+
+                
     </style>
   </head>
   <body>
-    <!-- <div class="sidebar">
-      <a href="#"><i class="fas fa-home"></i></a>
-      <a href="#"><i class="fas fa-globe"></i></a>
-      <a href="#"><i class="fas fa-user"></i></a>
-    </div> -->
-    <div class="date-label">
-      <!-- <div class="start-date">
-        <label for="start">Start date:</label>
-        <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value="2021-07-22"
-          min="2021-01-01"
-          max="2021-12-31"
-        />
-      </div>
-      <div class="end-date">
-        <label for="start">End date:</label>
-        <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value="2021-07-22"
-          min="2021-01-01"
-          max="2021-12-31"
-        />
-      </div> -->
-    
+    <div class="view-on-bigger-screen">
+      <p>Please view this content on a bigger screen for the best experience.</p>
+    </div>
+    <div class="content-container">
+    <div class="date-label">    
     </div>
     <form method="POST" id="date-filter-form">
         {% csrf_token %}
@@ -636,7 +619,6 @@
         <p>Selected Date: {{ start_date }} - {{ end_date }}</p>
     </div>
 
-    </div>
 
     
 
@@ -781,9 +763,7 @@
         </div>
     </div>
   </div>
-    <div class="view-on-bigger-screen">
-      <p>Please view this content on a bigger screen for the best experience.</p>
-    </div>
+</div>
 
  
 
