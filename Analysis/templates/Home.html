@@ -563,6 +563,20 @@
                     color: #000;
                     margin: 0 10px;
                 }
+
+            .view-on-bigger-screen {
+        display: none;
+        background-color: #f44336;
+        color: white;
+        text-align: center;
+        padding: 10px;
+      }
+
+      @media screen and (max-width: 768px) {
+        .view-on-bigger-screen {
+          display: block;
+        }
+      }
     </style>
   </head>
   <body>
@@ -767,6 +781,9 @@
         </div>
     </div>
   </div>
+    <div class="view-on-bigger-screen">
+      <p>Please view this content on a bigger screen for the best experience.</p>
+    </div>
 
  
 
